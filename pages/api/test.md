@@ -1,4 +1,4 @@
-const useApiMegapari = async ({ country = '', currency = '', email = '', phone = '', send_reg_data = '1', tag = '', promocode = '', bonus_choice = '3', need_parse_phone = '0' }) => {
+const useApiMegapari = async ({country = '', currency = '', email = '', phone = '', send_reg_data = '1', tag = '', promocode = '', bonus_choice = '3', need_parse_phone = '0' }) => {
 
   const MD5 = function (d) {
   var r = M(V(Y(X(d), 8 * d.length)));
@@ -508,9 +508,13 @@ const useApiMegapari = async ({ country = '', currency = '', email = '', phone =
   const data_need_parse_phone = need_parse_phone;
   const signature = MD5(secret + id + email);
 
-
   const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${data_tag}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}`;
-  const data = await fetch(`http://localhost:3000/api/proxyReg`, 
+
+  // PROXY
+  const proxyDomain = proxyDomain;
+  // HAVE TO CHANGE EVERY TIME WHEN DEPLOYING A NEW HOSTED PROJECT
+
+  const data = await fetch(`http://${proxyDomain}/api/proxyReg`, 
      {
         method: 'POST',
         headers: {
@@ -525,7 +529,7 @@ const useApiMegapari = async ({ country = '', currency = '', email = '', phone =
 
 
 // test example:
-const testData = { 
+const testData = {
   country: 'GR', //*must
   currency: 'EUR', //*must
   email: 'qwoer99woejtgm@gmail.com', //*must
